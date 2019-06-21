@@ -95,7 +95,7 @@ function Entity (_x, _y, _colliderRadius, _image, _colour, _colliderType, _type)
             
             if (this === entities[i]) continue;
 
-            if (this.colliderType === "none" || this.colliderType === "bullet") continue;
+            if (this.colliderType === "none" || entities[i].colliderType === "none" || entities[i].colliderType === "bullet" || this.colliderType === "bullet") continue;
 
             if(areColliding(this, entities[i])) {
                     this.x = this.oldPos.x;
