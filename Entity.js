@@ -72,7 +72,7 @@ function Entity (_x, _y, _colliderRadius, _image, _colour, _colliderType, _type)
     this.update = function() {
         switch (this.type) {
             case 2: this.moveAlongVector(this.typeSpecificVars[2].destX, this.typeSpecificVars[2].destY, 1);
-                    if (this.x === this.typeSpecificVars[2].destX && this.y === this.typeSpecificVars[2].destY) this.die();
+                    if (Math.floor(this.x) == this.typeSpecificVars[2].destX && Math.floor(this.y) == this.typeSpecificVars[2].destY) this.die();
                     break;
         }
     }
@@ -88,7 +88,7 @@ function Entity (_x, _y, _colliderRadius, _image, _colour, _colliderType, _type)
         }
 
         else {
-            
+
         }
     }
 
@@ -130,7 +130,15 @@ function Entity (_x, _y, _colliderRadius, _image, _colour, _colliderType, _type)
     }
 
     this.die = function() {
-        entities.remove(this);
+        
+        for( var i = 0; i < entities.length; i++){ 
+            if ( entities[i] === this) {
+                entities.splice(i, 1); 
+            }
+        }
+
+        entities.shift();
+ 
         this.isDead = true;
     }
 
