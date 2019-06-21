@@ -1,3 +1,9 @@
+"use strict";
+
+const mouse = {
+    x: window.innerWidth / 2,
+    y: window.innerHeight / 2
+}
 var canvas;
 var renderer;
 var frameCount = 0;
@@ -21,25 +27,23 @@ function Tile (_x, _y, _side, _image, _colour) {
 }
 
 function draw() {
+    
     frameCount++;
     window.requestAnimationFrame(draw);
     renderer.clearRect(0, 0, canvas.width, canvas.height);
     renderer.fillText(frameCount, 10, 10, 100);
     cursor.x = mouse.x;
     cursor.y = mouse.y;
-    for (i = 0; i < entities.length; i++) {
-        entities[i].update();
-        entities[i].draw();
-        entities[i].resolveCollisions();
+    for (let i = 0; i < entities.length; i++) {
+        if (!entities[i].isDead) {
+            entities[i].update();
+            entities[i].draw();
+            entities[i].resolveCollisions();
+        }
 
         /* if (entities[i].type === 1) {
             entities[i].follow(player);
         } */
-    }
-
-    for (i = 0; i < runEveryFrame.length; i++) {
-        runEveryFrame[i].update();
-        runEveryFrame[i].draw();
     }
 
     cursor.draw();
