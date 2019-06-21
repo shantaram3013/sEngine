@@ -1,3 +1,5 @@
+"use strict";
+
 function Entity (_x, _y, _colliderRadius, _image, _colour, _colliderType, _type) {
 
     this.colliderRadius = _colliderRadius;
@@ -75,16 +77,18 @@ function Entity (_x, _y, _colliderRadius, _image, _colour, _colliderType, _type)
         }
     }
     this.draw = function() {
-        if (this.isDead) {
-            
-        }
-        else {
+        
+        if (!this.isDead) {
             if (typeof this.image == 'undefined') {
                 new Circle(this.x + this.colliderRadius, this.y + this.colliderRadius, this.colliderRadius, this.colour).draw();
             }
             else {
                 console.log("else block called in this.draw()");
             }
+        }
+
+        else {
+            
         }
     }
 
@@ -96,7 +100,7 @@ function Entity (_x, _y, _colliderRadius, _image, _colour, _colliderType, _type)
             if (this === entities[i]) continue;
 
             if (this.colliderType === "none" || entities[i].colliderType === "none" || entities[i].colliderType === "bullet" || this.colliderType === "bullet") continue;
-
+            
             if(areColliding(this, entities[i])) {
                     this.x = this.oldPos.x;
                     this.y = this.oldPos.y;
@@ -127,7 +131,7 @@ function Entity (_x, _y, _colliderRadius, _image, _colour, _colliderType, _type)
 
     this.die = function() {
         entities.remove(this);
-        this.isDead(true);
+        this.isDead = true;
     }
 
     /* this.follow = function (subject) {
