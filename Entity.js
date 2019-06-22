@@ -71,24 +71,29 @@ function Entity (_x, _y, _colliderRadius, _image, _colour, _colliderType, _type)
     }
     this.update = function() {
         switch (this.type) {
-            case 2: this.moveAlongVector(this.typeSpecificVars[2].destX, this.typeSpecificVars[2].destY, 1);
-                    if (Math.floor(this.x) == this.typeSpecificVars[2].destX && Math.floor(this.y) == this.typeSpecificVars[2].destY) this.die();
+            case 2: var dest = {x: this.typeSpecificVars[2].destX, y: this.typeSpecificVars[2].destY};
+                    this.moveAlongVector(dest.x, dest.y, 3);
+                    if (this.x == dest.x && this.y == dest.y ||
+                        Math.floor(this.x) == dest.x && Math.floor(this.y) == dest.y ||
+                        Math.floor(this.x) == dest.x && Math.ceil(this.y) == dest.y ||
+                        Math.ceil(this.x) == dest.x && Math.floor(this.y) == dest.y ||
+                        Math.ceil(this.x) == dest.x && Math.ceil(this.y) == dest.y) this.die();
                     break;
         }
     }
     this.draw = function() {
         
-        if (!this.isDead) {
+        if (this.isDead) {
+            
+        }
+
+        else {
             if (typeof this.image == 'undefined') {
                 new Circle(this.x + this.colliderRadius, this.y + this.colliderRadius, this.colliderRadius, this.colour).draw();
             }
             else {
                 console.log("else block called in this.draw()");
             }
-        }
-
-        else {
-
         }
     }
 
@@ -136,8 +141,6 @@ function Entity (_x, _y, _colliderRadius, _image, _colour, _colliderType, _type)
                 entities.splice(i, 1); 
             }
         }
-
-        entities.shift();
  
         this.isDead = true;
     }
