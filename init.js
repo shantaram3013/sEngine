@@ -1,3 +1,5 @@
+"use strict";
+
 function init() {
     canvas = document.querySelector('canvas');
     renderer = canvas.getContext("2d");
@@ -5,8 +7,8 @@ function init() {
     canvas.height = window.innerHeight - window.innerHeight % World.tileSize;
 
     addEventListener('mousemove', event => {
-        mouse.x = event.clientX - (innerWidth - canvas.width);
-        mouse.y = event.clientY - (innerHeight - canvas.height);
+        Mouse.x = event.clientX - (innerWidth - canvas.width);
+        Mouse.y = event.clientY - (innerHeight - canvas.height);
     });
     
     addEventListener('resize', () => {
@@ -39,7 +41,7 @@ function init() {
     var rightMouseClicked = false;
 
     function handleMouseDown(e) {
-    //e.button describes the mouse button that was clicked
+    //e.button describes the Mouse button that was clicked
     // 0 is left, 1 is middle, 2 is right
         if (e.button === 2) {
             rightMouseClicked = true;
