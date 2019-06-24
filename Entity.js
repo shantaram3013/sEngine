@@ -10,7 +10,7 @@ function Entity (_x, _y, _colliderRadius, _image, _colour, _colliderType, _type)
     this.colliderType = _colliderType;
     this.type = _type;
     this.isDead = false;
-
+    this.health = 100;
     /*
      * type 0: cursor/player
      * type 1: enemy
@@ -42,6 +42,7 @@ function Entity (_x, _y, _colliderRadius, _image, _colour, _colliderType, _type)
             case Directions.UP: for (let i = 0; i < World.tileSize; i++) {
                                     this.y -= 1;
                                 }
+                                
                                 break;
             case Directions.DOWN: for (let i = 0; i < World.tileSize; i++) {
                                     this.y += 1; 
@@ -72,7 +73,7 @@ function Entity (_x, _y, _colliderRadius, _image, _colour, _colliderType, _type)
     this.update = function() {
         switch (this.type) {
             case 2: var dest = {x: this.typeSpecificVars[2].destX, y: this.typeSpecificVars[2].destY};
-                    this.moveAlongVector(dest.x, dest.y, 3);
+                    this.moveAlongVector(dest.x, dest.y, 2);
                     if (this.x == dest.x && this.y == dest.y ||
                         Math.floor(this.x) == dest.x && Math.floor(this.y) == dest.y ||
                         Math.floor(this.x) == dest.x && Math.ceil(this.y) == dest.y ||
@@ -84,7 +85,7 @@ function Entity (_x, _y, _colliderRadius, _image, _colour, _colliderType, _type)
     this.draw = function() {
         
         if (this.isDead) {
-            
+            return;
         }
 
         else {
@@ -102,10 +103,15 @@ function Entity (_x, _y, _colliderRadius, _image, _colour, _colliderType, _type)
         
         for (i = 0; i < entities.length; i++) {
             
-            if (this === entities[i]) continue;
+            if (this === entities[i]) return;
 
-            if (this.colliderType === "none" || entities[i].colliderType === "none" || entities[i].colliderType === "bullet" || this.colliderType === "bullet") continue;
-            
+            if (this.colliderType === "none" || entities[i].colliderType === "none") continue; 
+
+            if (entities[i].type == 2|| this.type == 2) {
+                this.bulletCollision(entities[i]);
+                continue;
+            }
+
             if(areColliding(this, entities[i])) {
                     this.x = this.oldPos.x;
                     this.y = this.oldPos.y;
@@ -134,11 +140,16 @@ function Entity (_x, _y, _colliderRadius, _image, _colour, _colliderType, _type)
        
     }
 
+    this.bulletCollision = function(cWith) {
+
+    }
+
     this.die = function() {
         
         for( var i = 0; i < entities.length; i++){ 
             if ( entities[i] === this) {
-                entities.splice(i, 1); 
+                entities.splice(i, 1);
+                break;
             }
         }
  
