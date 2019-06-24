@@ -1,6 +1,6 @@
 "use strict";
 
-const mouse = {
+let Mouse = {
     x: window.innerWidth / 2,
     y: window.innerHeight / 2
 }
@@ -32,8 +32,8 @@ function draw() {
     window.requestAnimationFrame(draw);
     renderer.clearRect(0, 0, canvas.width, canvas.height);
     renderer.fillText(frameCount, 10, 10, 100);
-    cursor.x = mouse.x;
-    cursor.y = mouse.y;
+    cursor.x = Mouse.x;
+    cursor.y = Mouse.y;
     for (let i = 0; i < entities.length; i++) {
         if (!entities[i].isDead) {
             entities[i].update();
