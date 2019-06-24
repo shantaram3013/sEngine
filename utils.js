@@ -1,3 +1,5 @@
+"use strict";
+
 const Directions = {
     UP : "up",
     DOWN : "down",
@@ -13,7 +15,7 @@ const World = {
     frameRate: 60
 }
 
-areColliding = function(m, n) {
+let areColliding = function(m, n) {
     if (distance(m.x, n.x, m.y, n.y) < m.colliderRadius + n.colliderRadius) {
         return true;
     }
@@ -21,10 +23,7 @@ areColliding = function(m, n) {
         return false;
     }
 }
-const mouse = {
-    x: window.innerWidth / 2,
-    y: window.innerHeight / 2
-}
+
 
 function randomInt(min, max) {
 
