@@ -34,8 +34,6 @@ function init() {
         if(keyCode == 100) {
             player.move(Directions.RIGHT);
         }
-    
-        
     });
 
     var rightMouseClicked = false;
@@ -55,7 +53,7 @@ function init() {
             }
 
             else {
-                // player.melee();
+                player.melee();
             }
         }
     }
